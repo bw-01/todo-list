@@ -28,3 +28,39 @@ a {
 * {
   border: 1px solid blue;
 }
+
+.container {
+  display: flex;
+}
+
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: antiquewhite;
+  padding: 10px;
+}
+
+.projects {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  height: 100px;
+  background-color: beige;
+  padding: 10px;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 10px;
+}
