@@ -115,3 +115,26 @@ button {
 .add-task {
   margin-top: 10px;
 }
+
+.task-form-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  padding: 20px;
+  background-color: white;
+  border: 2px solid black;
+}
+
+.task-form input,
+.task-form textarea,
+.task-form select {
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 8px;
+}
+
+.task-form button {
+  margin-top: 10px;
+}

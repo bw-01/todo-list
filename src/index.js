@@ -86,7 +86,7 @@ function addProject() {
 
   const project = new Project(title);
   projects.push(project);
-  activeProject = project
+  activeProject = project;
 
   updateDisplay();
 }
@@ -178,7 +178,7 @@ function displayTasks() {
   const tasksContainer = document.querySelector(".tasks-container");
   tasksContainer.textContent = "";
 
-  activeProject.tasks.forEach((task) => {
+  activeProject.tasks.forEach((task, index) => {
     const taskDiv = document.createElement("div");
     taskDiv.classList.add("task");
 
@@ -219,6 +219,7 @@ function displayTasks() {
         <path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1z"/>
       </svg>
     `;
+    deleteButton.addEventListener("click", () => deleteTask(index));
 
     taskRightDiv.append(dueDateDiv, priorityDiv, editButton, deleteButton);
 
@@ -228,8 +229,44 @@ function displayTasks() {
   });
 }
 
+function addTask(event) {
+  const taskFormContainer = document.querySelector(".task-form-container");
+  taskFormContainer.style.display = "block";
+
+  const taskForm = document.querySelector(".task-form");
+  taskForm.addEventListener("submit", submitTask);
+
+  const cancelButton = document.querySelector(".task-cancel");
+  cancelButton.addEventListener("click", () => {
+    taskFormContainer.style.display = "none";
+  });
+}
+
+function submitTask(event) {
+  event.preventDefault();
+
+  const title = document.getElementById("task-title").value;
+  const description = document.getElementById("task-description").value;
+  const dueDate = document.getElementById("task-due-date").value;
+  const priority = document.getElementById("task-priority").value;
+
+  const task = new Task(title, description, dueDate, priority);
+  activeProject.addTask(task);
+
+  document.querySelector(".task-form").reset();
+  document.querySelector(".task-form-container").style.display = "none";
+
+  displayTasks();
+}
+
+function deleteTask(index) {
+    activeProject.tasks.splice(index, 1);
+    displayTasks();
+}
+
 document.querySelector(".add-project").addEventListener("click", addProject);
 document.querySelector(".projects-container").addEventListener("click", deleteProject);
+document.querySelector(".add-task").addEventListener("click", addTask);
 
 document.querySelectorAll(".project").forEach((project) => {
   project.addEventListener("click", selectProject);
