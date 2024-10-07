@@ -54,14 +54,27 @@ a {
   padding: 5px;
   margin: 5px;
   border-radius: 5px;
+  background-color: rgb(240, 236, 232);
+  color: black;
+}
+
+.project button.delete {
+  background-color: inherit; 
+  border: none;
+  cursor: pointer;
+}
+
+.project.active {
   background-color: rgb(116, 126, 180);
   color: white;
 }
 
-.project button.delete {
-  background-color: rgb(116, 126, 180); 
-  border: none;
-  cursor: pointer;
+.project.active button.delete svg path {
+  fill: white; 
+}
+
+.project button.delete svg path {
+  fill: black;
 }
 
 .main {
