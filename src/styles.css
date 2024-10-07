@@ -36,14 +36,32 @@ a {
 .sidebar {
   width: 250px;
   height: 100vh;
-  background-color: antiquewhite;
+  background-color: rgb(240, 236, 232);
   padding: 10px;
 }
 
-.projects {
+.projects-container {
   display: flex;
   flex-direction: column;
   margin-top: 20px;
+}
+
+.project {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.3rem;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+  background-color: rgb(116, 126, 180);
+  color: white;
+}
+
+.project button.delete {
+  background-color: rgb(116, 126, 180); 
+  border: none;
+  cursor: pointer;
 }
 
 .main {
@@ -63,4 +81,34 @@ a {
 .content {
   flex-grow: 1;
   padding: 10px;
+}
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px;
+}
+
+.task-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.task-right {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+button {
+  display: flex;
+}
+
+
+
+.add-task {
+  margin-top: 10px;
 }

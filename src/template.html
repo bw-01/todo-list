@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Website Template</title>
+    <title>B's To Do List</title>
   </head>
   <body>
     <!DOCTYPE html>
@@ -17,22 +17,159 @@
         <div class="container">
           <div class="sidebar">
             <h1>B's To Do List</h1>
-            <div class="projects">
+            <div class="projects-container">
               <h3>My Projects</h3>
-              <button>Default</button>
-              <button>+ New</button>
+                <div class="projects"></div>
+              <button class="add-project">+ New Project</button>
             </div>
           </div>
+
           <div class="main">
             <div class="header">
               <h1>Project: Default</h1>
             </div>
             <div class="content">
               <h2>Tasks</h2>
-              <div class="tasks"></div>
+              <div class="tasks">
+                <div class="task">
+                  <div class="task-left">
+                    <input type="checkbox" />
+                    <div class="title">Task 1</div>
+                    <div class="description">Pick up groceries from the store</div>
+                  </div>
+                  <div class="task-right">
+                    <div class="due">10-15-2024</div>
+                    <div class="priority">Medium</div>
+                    <button class="edit">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        height="24">
+                        <path
+                          d="M3 17.25V21h3.75l11.04-11.04-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                      </svg>
+                    </button>
+                    <button class="delete">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        height="24">
+                        <path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1z" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="task">
+                  <div class="task-left">
+                    <input type="checkbox" />
+                    <div class="title">Task 2</div>
+                    <div class="description">Prepare presentation for Monday's meeting</div>
+                  </div>
+                  <div class="task-right">
+                    <div class="due">10-12-2024</div>
+                    <div class="priority">High</div>
+                    <button class="edit">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        height="24">
+                        <path
+                          d="M3 17.25V21h3.75l11.04-11.04-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                      </svg>
+                    </button>
+                    <button class="delete">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        height="24">
+                        <path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1z" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="task">
+                  <div class="task-left">
+                    <input type="checkbox" />
+                    <div class="title">Task 3</div>
+                    <div class="description">Schedule appointment with the dentist</div>
+                  </div>
+                  <div class="task-right">
+                    <div class="due">11-01-2024</div>
+                    <div class="priority">Low</div>
+                    <button class="edit">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        height="24">
+                        <path
+                          d="M3 17.25V21h3.75l11.04-11.04-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                      </svg>
+                    </button>
+                    <button class="delete">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        height="24">
+                        <path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1z" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="task">
+                  <div class="task-left">
+                    <input type="checkbox" />
+                    <div class="title">Task 4</div>
+                    <div class="description">Organize team lunch for Friday</div>
+                  </div>
+                  <div class="task-right">
+                    <div class="due">10-20-2024</div>
+                    <div class="priority">Medium</div>
+                    <button class="edit">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        height="24">
+                        <path
+                          d="M3 17.25V21h3.75l11.04-11.04-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                      </svg>
+                    </button>
+                    <button class="delete">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        height="24">
+                        <path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1z" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <button class="add-task">+ New Task</button>
             </div>
           </div>
         </div>
+
+        <div id="project-form" class="new-item-form">
+          <form action="" class="project-form">
+            <h2>New Project</h2>
+            <label for="project-name">Name:</label>
+            <input type="text" id="project-name" />
+            <button type="submit">Submit</button>
+            <button>Cancel</button>
+          </form>
+        </div>
+
       </body>
     </html>
   </body>
