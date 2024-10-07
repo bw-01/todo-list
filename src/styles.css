@@ -25,9 +25,9 @@ a {
 }
 
 /* for visual debugging */
-* {
+/* * {
   border: 1px solid blue;
-}
+} */
 
 .container {
   display: flex;
@@ -67,14 +67,6 @@ a {
 .project.active {
   background-color: rgb(116, 126, 180);
   color: white;
-}
-
-.project.active button.delete svg path {
-  fill: white; 
-}
-
-.project button.delete svg path {
-  fill: black;
 }
 
 .main {
@@ -119,8 +111,6 @@ a {
 button {
   display: flex;
 }
-
-
 
 .add-task {
   margin-top: 10px;
