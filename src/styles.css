@@ -24,10 +24,10 @@ a {
   color: inherit;
 }
 
-/* for visual debugging */
-/* * {
-  border: 1px solid blue;
-} */
+button {
+  display: flex;
+  cursor: pointer;
+}
 
 .container {
   display: flex;
@@ -38,6 +38,12 @@ a {
   height: 100vh;
   background-color: rgb(240, 236, 232);
   padding: 10px;
+}
+
+.title-separator {
+  height: 2px;
+  background-color: #ccc;
+  margin: 10px 0;
 }
 
 .projects-container {
@@ -58,15 +64,56 @@ a {
   color: black;
 }
 
-.project button.delete {
-  background-color: inherit; 
+.project button {
+  background-color: inherit;
   border: none;
-  cursor: pointer;
 }
 
 .project.active {
-  background-color: rgb(116, 126, 180);
+  background-color: rgb(117, 129, 199);
   color: white;
+}
+
+.add-project {
+ width: fit-content;
+ margin-top: 10px;
+margin-left: 10px;
+}
+
+.add-project:focus {
+  outline: none;
+}
+
+.project-form-container {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  padding: 20px;
+  background-color: white;
+  border: 2px solid black;
+}
+
+.project-form hr {
+  margin-bottom: 10px;
+}
+
+.project-form input {
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  line-height: 1.1;
+}
+
+.project-form-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.project-form button {
+  margin-top: 10px;
 }
 
 .main {
@@ -83,7 +130,7 @@ a {
   padding: 10px;
 }
 
-.content {
+.tasks {
   flex-grow: 1;
   padding: 10px;
 }
@@ -92,7 +139,7 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4px;
+  padding: 10px 4px;
 }
 
 .task-left {
@@ -105,15 +152,16 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  gap: 10px;
-}
-
-button {
-  display: flex;
+  gap: 15px;
 }
 
 .add-task {
   margin-top: 10px;
+  margin-left: 10px;
+}
+
+.add-task:focus {
+  outline: none;
 }
 
 .task-form-container {
@@ -127,14 +175,112 @@ button {
   border: 2px solid black;
 }
 
+.task-form hr {
+  margin-bottom: 10px;
+}
+
 .task-form input,
 .task-form textarea,
 .task-form select {
   margin-bottom: 10px;
   width: 100%;
-  padding: 8px;
+  padding: 10px;
+}
+
+.task-form-buttons {
+  display: flex;
+  gap: 10px;
 }
 
 .task-form button {
   margin-top: 10px;
+}
+
+.task .title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.task .description {
+  color: grey;
+}
+
+.task-meta .label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.priority-level {
+  font-weight: bold;
+}
+
+.priority-level.high {
+  color: red;
+}
+
+.priority-level.medium {
+  color: orange;
+}
+
+.priority-level.low {
+  color: rgb(13, 207, 13);
+}
+
+.completed .title,
+.completed .description {
+  text-decoration: line-through;
+  color: lightgray;
+}
+
+.completed .due,
+.completed .priority,
+.completed .priority-level {
+  color: lightgray;
+  font-weight: lighter;
+}
+
+.task-right button {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin-left: 5px;
+  border-radius: 5px;
+}
+
+.task-right button:hover {
+  background-color: #e0e0e0;
+}
+
+.add-task,
+.add-project,
+.task-form-buttons button,
+.project-form-buttons button {
+  background-color: #2a9d8f;
+  border: 1px solid #328b81;
+  color: white;
+  padding: 6px 12px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.add-task:hover,
+.add-project:hover,
+.task-form-buttons button:hover,
+.project-form-buttons button:hover {
+  background-color: #0fad9b;
+  transform: scale(1.05);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: 1000; 
+}
+
+.task-form-container, .project-form-container {
+  z-index: 1001; 
 }
