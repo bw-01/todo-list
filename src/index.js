@@ -127,6 +127,11 @@ function submitProject(event) {
     return;
   }
 
+  if (projects.find((project) => project.name.toLowerCase() === projectName.toLowerCase())) {
+    alert("Project name already exists. Please choose a unique name");
+    return;
+  }
+
   const project = new Project(projectName);
   projects.push(project);
   activeProject = project;
@@ -176,6 +181,15 @@ function selectProject(event) {
 function displayTasks() {
   const tasksContainer = document.querySelector(".tasks-container");
   tasksContainer.textContent = "";
+
+  if (activeProject.tasks.length === 0) {
+    const noTaskDiv = document.createElement("div");
+    noTaskDiv.classList.add("no-task-message");
+    noTaskDiv.textContent =
+      "Welcome to your new project. To get started, click the below button and create your first task.";
+    tasksContainer.appendChild(noTaskDiv);
+    return;
+  }
 
   activeProject.tasks.forEach((task, index) => {
     const taskDiv = document.createElement("div");
@@ -386,20 +400,19 @@ function loadData() {
   if (storedData) {
     projects = JSON.parse(storedData).map((projectData) => {
       const project = new Project(projectData.name);
-      project.tasks = projectData.tasks.map(
-        (task) => {
-          const newTask = new Task(task.title, task.description, task.dueDate, task.priority);
-          newTask.completed = task.completed; 
-          return newTask;
-        }
-      );
+      project.tasks = projectData.tasks.map((task) => {
+        const newTask = new Task(task.title, task.description, task.dueDate, task.priority);
+        newTask.completed = task.completed;
+        return newTask;
+      });
       return project;
     });
 
     if (projects.length > 0) {
-      activeProject = projects[0]; 
+      activeProject = projects[0];
     }
-  } else { // load some default data for first use
+  } else {
+    // load some default data for first use
     activeProject = new Project("Default");
     const task1 = new Task(
       "Buy groceries",
@@ -441,6 +454,7 @@ function loadData() {
     activeProject.addTask(task3);
     activeProject.addTask(task4);
     activeProject.addTask(task5);
+
     projects.push(activeProject);
   }
 }

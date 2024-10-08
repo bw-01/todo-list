@@ -147,6 +147,10 @@ button {
   padding: 10px;
 }
 
+.no-task-message {
+  padding: 10px;
+}
+
 .task {
   display: flex;
   justify-content: space-between;
