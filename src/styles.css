@@ -36,14 +36,21 @@ button {
 .sidebar {
   width: 250px;
   height: 100vh;
-  background-color: rgb(240, 236, 232);
-  padding: 10px;
+  background-color: rgb(226, 216, 216);
+  padding: 15px;
 }
 
-.title-separator {
-  height: 2px;
-  background-color: #ccc;
-  margin: 10px 0;
+.sidebar h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8em;
+  height: 70px;
+  background-color: #f5f5f5;
+  padding: 10px 15px;
+  border-bottom: 2px solid #ccc;
+  font-weight: bold; 
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .projects-container {
@@ -75,9 +82,9 @@ button {
 }
 
 .add-project {
- width: fit-content;
- margin-top: 10px;
-margin-left: 10px;
+  width: fit-content;
+  margin-top: 10px;
+  margin-left: 5px;
 }
 
 .add-project:focus {
@@ -153,6 +160,12 @@ margin-left: 10px;
   align-items: center;
   justify-content: space-around;
   gap: 15px;
+}
+
+.task .description {
+  max-width: 500px;
+  flex-shrink: 1;
+  overflow-wrap: break-word;
 }
 
 .add-task {
@@ -255,8 +268,8 @@ margin-left: 10px;
 .add-project,
 .task-form-buttons button,
 .project-form-buttons button {
-  background-color: #2a9d8f;
-  border: 1px solid #328b81;
+  background-color: #5faaa1;
+  border: 1px solid #54968e;
   color: white;
   padding: 6px 12px;
   font-size: 16px;
@@ -277,10 +290,11 @@ margin-left: 10px;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); 
-  z-index: 1000; 
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
 }
 
-.task-form-container, .project-form-container {
-  z-index: 1001; 
+.task-form-container,
+.project-form-container {
+  z-index: 1001;
 }

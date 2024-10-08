@@ -1,6 +1,7 @@
 import "./styles.css";
 
 let projects = []; // array to hold all projects
+let editingTaskIndex = null; // tracks the index of a task if its being edited
 
 // Project class that holds tasks specific to each project
 class Project {
@@ -34,6 +35,20 @@ function updateDisplay() {
   displayProjects();
   updateHeader();
   displayTasks();
+}
+
+// Close forms when esc key is pressed
+function handleEscape(event) {
+  if (event.key === "Escape") {
+    document.querySelector(".overlay").style.display = "none";
+
+    document.querySelector(".task-form").reset();
+    document.querySelector(".task-form-container").style.display = "none";
+    editingTaskIndex = null;
+    
+    document.querySelector(".project-form").reset();
+    document.querySelector(".project-form-container").style.display = "none";
+  }
 }
 
 // Display the list of projects in the UI
@@ -79,7 +94,7 @@ function displayProjects() {
 }
 
 // Control display of the project form
-function addProject() {  
+function addProject() {
   const projectFormContainer = document.querySelector(".project-form-container");
   projectFormContainer.style.display = "block";
 
@@ -89,6 +104,7 @@ function addProject() {
   document.getElementById("project-name").focus();
 
   const projectForm = document.querySelector(".project-form");
+  projectForm.removeEventListener("submit", submitProject);
   projectForm.addEventListener("submit", submitProject);
 
   const cancelButton = document.querySelector(".project-cancel");
@@ -96,14 +112,6 @@ function addProject() {
     overlay.style.display = "none";
     document.querySelector(".project-form").reset();
     projectFormContainer.style.display = "none";
-  });
-
-  document.addEventListener("keydown", function (event) {
-    if (event.key === "Escape") {
-      overlay.style.display = "none";
-      document.querySelector(".project-form").reset();
-      projectFormContainer.style.display = "none";
-    }
   });
 }
 
@@ -221,6 +229,7 @@ function displayTasks() {
         <path d="M3 17.25V21h3.75l11.04-11.04-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
       </svg>
     `;
+    editButton.addEventListener("click", () => editTask(index));
 
     const deleteButton = document.createElement("button");
     deleteButton.classList.add("delete");
@@ -250,6 +259,7 @@ function addTask() {
   document.getElementById("task-title").focus();
 
   const taskForm = document.querySelector(".task-form");
+  taskForm.removeEventListener("submit", submitTask);
   taskForm.addEventListener("submit", submitTask);
 
   const cancelButton = document.querySelector(".task-cancel");
@@ -257,14 +267,6 @@ function addTask() {
     overlay.style.display = "none";
     document.querySelector(".task-form").reset();
     taskFormContainer.style.display = "none";
-  });
-
-  document.addEventListener("keydown", function (event) {
-    if (event.key === "Escape") {
-      overlay.style.display = "none";
-      document.querySelector(".task-form").reset();
-      taskFormContainer.style.display = "none";
-    }
   });
 }
 
@@ -298,6 +300,61 @@ function taskCompleted(index, checkedState) {
   activeProject.tasks[index].completed = checkedState;
   activeProject.tasks.sort((a, b) => a.completed - b.completed);
   displayTasks();
+}
+
+// Show the task form with pre-filled task data for editing
+function editTask(index) {
+  const taskFormContainer = document.querySelector(".task-form-container");
+  const taskForm = document.querySelector(".task-form");
+
+  const overlay = document.querySelector(".overlay");
+  overlay.style.display = "block";
+
+  taskForm.querySelector("h2").textContent = "Edit Task";
+  taskForm.querySelector(".task-submit").textContent = "Submit";
+
+  const task = activeProject.tasks[index];
+
+  document.getElementById("task-title").value = task.title;
+  document.getElementById("task-description").value = task.description;
+  document.getElementById("task-due-date").value = task.dueDate;
+  document.getElementById("task-priority").value = task.priority;
+
+  taskFormContainer.style.display = "block";
+  editingTaskIndex = index;
+
+  // Reset the event listener to prevent duplicates
+  taskForm.removeEventListener("submit", submitTask);
+  taskForm.removeEventListener("submit", submitEditedTask);
+  taskForm.addEventListener("submit", submitEditedTask);
+
+  const cancelButton = document.querySelector(".task-cancel");
+  cancelButton.addEventListener("click", () => {
+    overlay.style.display = "none";
+    taskFormContainer.style.display = "none";
+    editingTaskIndex = null;
+    taskForm.reset();
+    taskForm.querySelector("h2").textContent = "Add New Task";
+  });
+}
+
+// Submit the edited task form
+function submitEditedTask(event) {
+  event.preventDefault();
+
+  if (editingTaskIndex !== null) {
+    const task = activeProject.tasks[editingTaskIndex];
+    task.title = document.getElementById("task-title").value;
+    task.description = document.getElementById("task-description").value;
+    task.dueDate = document.getElementById("task-due-date").value;
+    task.priority = document.getElementById("task-priority").value;
+
+    document.querySelector(".overlay").style.display = "none";
+    document.querySelector(".task-form-container").style.display = "none";
+    document.querySelector(".task-form").reset();
+    editingTaskIndex = null;
+    displayTasks();
+  }
 }
 
 // Update the header with the currently active project
@@ -355,6 +412,7 @@ activeProject.addTask(task3);
 projects[1].addTask(task4);
 projects[1].addTask(task5);
 
+document.addEventListener("keydown", handleEscape);
 document.querySelector(".add-project").addEventListener("click", addProject);
 document.querySelector(".projects-container").addEventListener("click", deleteProject);
 document.querySelector(".add-task").addEventListener("click", addTask);
