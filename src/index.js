@@ -1,4 +1,5 @@
 import "./styles.css";
+import { format } from "date-fns";
 
 let projects = []; // array to hold all projects
 let editingTaskIndex = null; // tracks the index of a task if its being edited
@@ -211,7 +212,8 @@ function displayTasks() {
 
     const dueDateDiv = document.createElement("div");
     dueDateDiv.classList.add("due");
-    dueDateDiv.innerHTML = `<span class="label">Due: </span><span class="due-date">${task.dueDate}</span>`;
+    const formattedDate = format(new Date(task.dueDate), "d MMM yyyy");
+    dueDateDiv.innerHTML = `<span class="label">Due: </span><span class="due-date">${formattedDate}</span>`;
 
     const priorityDiv = document.createElement("div");
     priorityDiv.classList.add("priority");
