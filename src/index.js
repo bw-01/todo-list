@@ -3,6 +3,7 @@ import { format } from "date-fns";
 
 let projects = []; // array to hold all projects
 let editingTaskIndex = null; // tracks the index of a task if its being edited
+let activeProject = null;
 
 // Project class that holds tasks specific to each project
 class Project {
@@ -46,7 +47,7 @@ function handleEscape(event) {
     document.querySelector(".task-form").reset();
     document.querySelector(".task-form-container").style.display = "none";
     editingTaskIndex = null;
-    
+
     document.querySelector(".project-form").reset();
     document.querySelector(".project-form-container").style.display = "none";
   }
@@ -133,6 +134,8 @@ function submitProject(event) {
   document.querySelector(".overlay").style.display = "none";
   document.querySelector(".project-form").reset();
   document.querySelector(".project-form-container").style.display = "none";
+
+  saveData();
   updateDisplay();
 }
 
@@ -150,6 +153,7 @@ function deleteProject(event) {
     }
   }
 
+  saveData();
   updateDisplay();
 }
 
@@ -288,12 +292,14 @@ function submitTask(event) {
   document.querySelector(".task-form").reset();
   document.querySelector(".task-form-container").style.display = "none";
 
+  saveData();
   displayTasks();
 }
 
 // Delete a task from a project
 function deleteTask(index) {
   activeProject.tasks.splice(index, 1);
+  saveData();
   displayTasks();
 }
 
@@ -301,6 +307,7 @@ function deleteTask(index) {
 function taskCompleted(index, checkedState) {
   activeProject.tasks[index].completed = checkedState;
   activeProject.tasks.sort((a, b) => a.completed - b.completed);
+  saveData();
   displayTasks();
 }
 
@@ -355,6 +362,8 @@ function submitEditedTask(event) {
     document.querySelector(".task-form-container").style.display = "none";
     document.querySelector(".task-form").reset();
     editingTaskIndex = null;
+
+    saveData();
     displayTasks();
   }
 }
@@ -365,54 +374,76 @@ function updateHeader() {
   projectHeader.textContent = `Project: ${activeProject.name}`;
 }
 
-// Some default data for testing
-let activeProject = new Project("Default");
-projects.push(activeProject);
-projects.push(new Project("P1"));
-projects.push(new Project("P2"));
-projects.push(new Project("P4"));
-projects.push(new Project("P3"));
+// Save data when projects or tasks change
+function saveData() {
+  localStorage.setItem("projects", JSON.stringify(projects));
+}
 
-const task1 = new Task(
-  "Buy groceries",
-  "Buy milk, bread, and eggs from the store",
-  "2024-10-15",
-  "High"
-);
+// Load project data when site loads
+function loadData() {
+  const storedData = localStorage.getItem("projects");
 
-const task2 = new Task(
-  "Finish project report",
-  "Complete the final draft of the project report for submission",
-  "2024-10-20",
-  "Medium"
-);
+  if (storedData) {
+    projects = JSON.parse(storedData).map((projectData) => {
+      const project = new Project(projectData.name);
+      project.tasks = projectData.tasks.map(
+        (task) => {
+          const newTask = new Task(task.title, task.description, task.dueDate, task.priority);
+          newTask.completed = task.completed; 
+          return newTask;
+        }
+      );
+      return project;
+    });
 
-const task3 = new Task(
-  "Doctor's appointment",
-  "Visit Dr. Smith for a routine check-up",
-  "2024-10-18",
-  "Low"
-);
+    if (projects.length > 0) {
+      activeProject = projects[0]; 
+    }
+  } else { // load some default data for first use
+    activeProject = new Project("Default");
+    const task1 = new Task(
+      "Buy groceries",
+      "Buy milk, bread, and eggs from the store",
+      "2024-10-15",
+      "High"
+    );
 
-const task4 = new Task(
-  "Team meeting",
-  "Attend the monthly team sync meeting to discuss progress",
-  "2024-10-10",
-  "High"
-);
+    const task2 = new Task(
+      "Finish project report",
+      "Complete the final draft of the project report for submission",
+      "2024-10-20",
+      "Medium"
+    );
 
-const task5 = new Task(
-  "Pay electricity bill",
-  "Pay the monthly electricity bill before the due date",
-  "2024-10-12",
-  "Medium"
-);
+    const task3 = new Task(
+      "Doctor's appointment",
+      "Visit Dr. Smith for a routine check-up",
+      "2024-10-18",
+      "Low"
+    );
 
-activeProject.addTask(task1);
-activeProject.addTask(task2);
-activeProject.addTask(task3);
-projects[1].addTask(task4);
-projects[1].addTask(task5);
+    const task4 = new Task(
+      "Team meeting",
+      "Attend the monthly team sync meeting to discuss progress",
+      "2024-10-10",
+      "High"
+    );
+
+    const task5 = new Task(
+      "Pay electricity bill",
+      "Pay the monthly electricity bill before the due date",
+      "2024-10-12",
+      "Medium"
+    );
+
+    activeProject.addTask(task1);
+    activeProject.addTask(task2);
+    activeProject.addTask(task3);
+    activeProject.addTask(task4);
+    activeProject.addTask(task5);
+    projects.push(activeProject);
+  }
+}
 
 document.addEventListener("keydown", handleEscape);
 document.querySelector(".add-project").addEventListener("click", addProject);
@@ -423,4 +454,7 @@ document.querySelectorAll(".project").forEach((project) => {
   project.addEventListener("click", selectProject);
 });
 
-updateDisplay();
+window.addEventListener("DOMContentLoaded", () => {
+  loadData();
+  updateDisplay();
+});
